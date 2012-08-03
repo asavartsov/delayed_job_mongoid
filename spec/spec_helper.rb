@@ -1,7 +1,10 @@
-require 'rubygems'
-require 'bundler/setup'
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+unless ENV['CI']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'spec'
+  end
+end
+
 require 'rspec'
 require 'delayed_job_mongoid'
 require 'delayed/backend/shared_spec'
@@ -18,4 +21,3 @@ class Story
 
   handle_asynchronously :whatever
 end
-
